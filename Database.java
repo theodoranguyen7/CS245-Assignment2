@@ -2,7 +2,12 @@
  * Theodora Nguyen
  * Professor David-Guy Brizan
  * CS 245-01
- * 26 April 2020
+ * 4 May 2020
+ *
+ * @file
+ * Uses the implementation of a hashmap to create keys and values. The Item hashmap stores the name of the product as
+ * the key and the description, size, and price as the value. The Service hashmap stores the service's name as the
+ * key and the service's csv file and the price of the service's delivery fee as the value.
  * */
 import java.util.*;
 
@@ -16,51 +21,57 @@ public class Database {
 
     }
 
-    public void addProduct(String key, Product product, String service) {
-        System.out.println("This is the incoming key"+ key);
+    /**
+     * Adding a product name as key to the Product map.
+     * */
+    public void addProduct(String key, Product product) {
         if (!this.Item.containsKey(key)) {
-            System.out.println("IN IF");
             Item.put(key, product);
-            //System.out.println("IN IF");
-
         }
         else {
-//            this.Item.get(key).addService(service);
-//            this.Item.get(key).addAmount(product.getAmount());
-            System.out.println("IN ELSE");
             Item.put(key, product);
-//            System.out.println("IN ELSE");
         }
-
-        System.out.println("MAP ITEM (below)");
-        System.out.println(Item.toString());
     }
 
+    /**
+     * Adding a service name as a key to the Company map.
+     * */
     public void addService(String key, Service service){
         this.Company.put(key, service);
     }
 
+    /**
+     * Returns the value of the specified key.
+     * */
     public Product getProduct(String item)
     {
-        //System.out.println(item);
         return Item.get(item);
     }
 
+    /**
+     * Checks if the key is in the hashmap.
+     * */
     public boolean containsItem(String item) {
-        System.out.println("containsItem " + this.Item.keySet().toString());
         return this.Item.containsKey(item);
     }
 
+    /**
+     * Returns the Item's hashmap
+     * */
     public HashMap<String, Product> getItem() {
-
         return Item;
     }
 
+    /**
+     * Returns the Company's hashmap
+     * */
     public HashMap<String, Service> getCompany() {
-
         return Company;
     }
 
+    /**
+     * Returns the value (service) in the Company hashmap
+     * */
     public Service getCompany(String key)
     {
         if(!Company.containsKey(key))
@@ -77,32 +88,17 @@ public class Database {
         String amount;
         String price;
         String service;
-        //ArrayList<String> services;
-        //ArrayList<String> amounts;
 
         public Product(String description, String amount, String price, String service)
         {
             this.description = description;
             this.price = price;
-            //services = new ArrayList<String>();
-            //amounts = new ArrayList<String>();
             this.service = service;
             this.amount = amount;
-            //addAmount(amount);
-            //addService(service);
         }
 
-//        public void addService(String service) {
-//            this.services.add(service);
-//        }
-//
-//        public  void addAmount(String amount)
-//        {
-//            this.amounts.add(amount);
-//        }
 
         public String getService() {
-
 
             return service;
         }
@@ -119,8 +115,6 @@ public class Database {
 
         public String getPrice() {
 
-
-
             return price;
         }
 
@@ -136,7 +130,6 @@ public class Database {
     }
 
     public class Service{
-        //String company;
         String company_file;
         String service_fee;
 
@@ -164,6 +157,7 @@ public class Database {
                     '}';
         }
     }
+
     public void removeService(String service_name){
         for (String item: Item.keySet())
         {
@@ -176,18 +170,10 @@ public class Database {
 
         for (String company: Company.keySet())
         {
-//            if (Company.get(company).getCompany_file().contains(company)){
-//                Company.remove(company);
-//            }
-
             if (!company.equals(service_name))
             {
                 Company.remove(company);
             }
         }
-
-        System.out.println("Remove item set result \n" + Item.keySet());
-        System.out.println(Company.keySet());
     }
-
 }
